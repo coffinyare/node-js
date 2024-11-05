@@ -1,31 +1,18 @@
-const {create} = require("domain")
-const {gettasks,createtask,updatetask,Deletetask}
-const  taskroutes=(req,res)=>{
+const { createTasks, getTasks, updateTasks, deleteTasks } = require("../Controlles/taskControlles");
 
-    //1000 define all the routes
-    
-    if( req.method==='GET')(
-       gettasks(req,res)
-    ) 
-    else if ( req.method==='POST')(
-        createtask(req,res)
-    ) 
-       else if ( req.method==='PATCH')(
-        updatetask(req,res)
-    )  
-      else if ( req.method==='DELETE')(
-        daletetask(req,res)
-   
-    ) 
-   else(
-    res.writeHead(404,'not found ',('content-type'),
-    res.end(JSON.stringify({
-        message :'page not found'
-    }))
-    )
-       
-    )
+const taskRoutes = (req, res) => {
+    if (req.method === 'GET') {
+        getTasks(req, res); // Handles GET requests to fetch tasks
+    } else if (req.method === 'POST') {
+        createTasks(req, res); // Handles POST requests to create a new task
+    } else if (req.method === 'PATCH') {
+        updateTasks(req, res); // Handles PATCH requests to update a task
+    } else if (req.method === 'DELETE') {
+        deleteTasks(req, res); // Handles DELETE requests to remove a task
+    } else {
+        res.writeHead(404, 'Data Not Found', { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ message: 'Unknown Method required' }));
+    }
+};
 
-
-}
-module.exports= taskroutes;
+module.exports = taskRoutes;
